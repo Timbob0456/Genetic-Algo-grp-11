@@ -19,9 +19,6 @@ distances = {
     
 }
 
-   
-
-
 # Population initialization function: Generate a random route for the traveling salesman problem
 def initialize_population(population_size, cities):
     population = []
