@@ -66,9 +66,53 @@ def tournament_selection(population, fitness, k=2):
         selected.append(population[best_idx])
     return selected
 #Crossover - Combine two parent solutions to create offspring (e.g., one-point crossover, two-point crossover, uniform crossover, etc.)
+def one_point_crossover(parent1, parent2):
+    point = rand.randint(1, len(parent1) - 1) 
+    offspring1 = parent1[:point] + [city for city in parent2 if city not in parent1[:point]] 
+    offspring2 = parent2[:point] + [city for city in parent1 if city not in parent2[:point]]
+    return offspring1, offspring2
 
+def two_point_crossover(parent1, parent2):
+    point1, point2 = sorted(rand.sample(range(1, len(parent1) - 1), 2)) 
+    offspring1 = parent1[:point1] + parent2[point1:point2] + parent1[point2:] 
+    offspring2 = parent2[:point1] + parent1[point1:point2] + parent2[point2:] 
+    return offspring1, offspring2
+
+def uniform_crossover(parent1, parent2):
+    offspring1, offspring2 = [], []
+    for i in range(len(parent1)):
+        if rand.random() < 0.5:
+            offspring1.append(parent1[i])
+            offspring2.append(parent2[i])
+        else:
+            offspring1.append(parent2[i])
+            offspring2.append(parent1[i])
+    return offspring1, offspring2
+     
 #Mutation - Introduce random changes to offspring to maintain genetic diversity (e.g., bit flip mutation, swap mutation, etc.)
-
+def mutation_swap(cities):
+    idx1, idx2 = rand.sample(range(len(cities)), 2) 
+    cities[idx1], cities[idx2] = cities[idx2], cities[idx1] 
+    return cities
+     
 #New Population - Replace the current population with the new offspring, often using elitism to retain the best solutions from the previous generation
-
+def create_new_population(selected, crossover_rate=0.8, mutation_rate=0.1):
+    new_population = []
+    for i in range(0, len(selected) - 1 , 2):
+        parent1 = selected[i].copy() 
+        parent2 = selected[i + 1].copy() 
+        
+        if rand.random() < crossover_rate: 
+            offspring1, offspring2 = one_point_crossover(parent1, parent2)
+        else:
+            offspring1, offspring2 = parent1.copy(), parent2.copy() 
+        
+        if rand.random() < mutation_rate: 
+            offspring1 = mutation_swap(offspring1)
+        if rand.random() < mutation_rate:
+            offspring2 = mutation_swap(offspring2)
+        
+        new_population.extend([offspring1, offspring2]) 
+    return new_population
+     
 #Repeat (Evolution loop) - Repeat the process for a specified number of generations or until a stopping criterion is met (e.g., convergence, maximum fitness, etc.)
