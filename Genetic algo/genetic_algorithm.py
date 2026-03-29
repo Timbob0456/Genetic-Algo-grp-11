@@ -15,10 +15,11 @@ source city to the destination city.
 This structure allows for efficient lookups of distances between any two cities in the traveling salesman problem.
 """
 distances = {
-    'A': {'A': 0, 'B': 5, 'C': 9, 'D': 14},
-    'B': {'A': 5, 'B': 0, 'C': 7, 'D': 10},
-    'C': {'A': 9, 'B': 7, 'C': 0, 'D': 4},
-    'D': {'A': 14, 'B': 10, 'C': 4, 'D': 0}
+    'A': {'A': 0, 'B': 5, 'C': 10, 'D': 15},
+    'B': {'A': 5, 'B': 0, 'C': 20, 'D': 25},
+    'C': {'A': 15, 'B': 27, 'C': 0, 'D': 30},
+    'D': {'A': 20, 'B': 27, 'C': 30, 'D': 0}
+    
 }
 
 # Population initialization function: Generate a random route for the traveling salesman problem
@@ -106,30 +107,25 @@ def create_new_population(population, fitness, crossover_rate=0.8, mutation_rate
 
     selected = tournament_selection(population, fitness, TOURNAMENT_SIZE)
 
-    if len(selected) % 2 != 0:
-        selected.append(selected[-1].copy())
-
-    for i in range(0, len(selected) - 1, 2):
-        if len(new_population) >= len(population):
-            break
-
-        parent1 = selected[i].copy()
-        parent2 = selected[i + 1].copy()
-
+    i = 0
+    while len(new_population) < len(population):
+        parent1 = selected[i % len(selected)].copy()
+        parent2 = selected[(i + 1) % len(selected)].copy()
+        i += 2
+        
         if rand.random() < crossover_rate:
             offspring1, offspring2 = one_point_crossover(parent1, parent2)
         else:
             offspring1, offspring2 = parent1.copy(), parent2.copy()
-
+        
         if rand.random() < mutation_rate:
             offspring1 = mutation_swap(offspring1)
         if rand.random() < mutation_rate:
             offspring2 = mutation_swap(offspring2)
-
+        
         new_population.append(offspring1)
         if len(new_population) < len(population):
             new_population.append(offspring2)
-
     return new_population
 
 #Run the genetic algorithm across multiple generations and track improvement
