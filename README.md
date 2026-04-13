@@ -41,7 +41,14 @@ python genetic_algorithm.py
 - Visualization of the final best route through text/graph output
 
 ## Algorithm Workflow
-
+1. Initial population generated of random routes 
+2. Use a fitness function (total distance) to evaluate each route
+3. Use tournament selection to select parents
+4. Crossover applied to produce offspring
+5. Mutation applied to introduce variation
+6. Use elitism and offspring to create a new population
+7. Multiple generations to be repeated
+8. Best route and distance output
   
 ## Expected Output
 
@@ -52,15 +59,11 @@ Example output format:
 Route: ['B', 'A', 'D', 'C'], Total Distance: 82
 Route: ['C', 'A', 'B', 'D'], Total Distance: 70
 
-Because the initial population is random, your output may be different each time you run the file.
+Since the initial population is random, the output may be different each time you run the file.
 
 ## Notes
-
-- This version currently demonstrates:
-  - population initialization
-  - route encoding using permutations
-  - fitness calculation
-  - tournament selection logic
+  - Balance of exploration and exploitation demonstrated
+  - Results are close to optimal
 
 ## Troubleshooting
 
@@ -71,3 +74,10 @@ pip install numpy
 - If Python is not recognized, try:
 
 python3 genetic_algorithm.py
+
+## Future Improvements
+- Scale to larger city datasets
+- Improve visualization (graphical plots)
+- Fine-tuning of parameters (population size, mutation rate)
+- Performance compared across various selection strategies
+- Add performance metrics and convergence tracking
