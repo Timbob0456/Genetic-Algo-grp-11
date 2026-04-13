@@ -77,7 +77,10 @@ python3 genetic_algorithm.py
 
 ## Future Improvements
 - Scale to larger city datasets
-- Improve visualization (graphical plots)
-- Fine-tuning of parameters (population size, mutation rate)
+- Improving Visuals
+- Tuning Parameters
 - Performance compared across various selection strategies
 - Add performance metrics and convergence tracking
+
+## Conclusion
+The current project demonstrates a genetic algorithm capable of finding an approximate solution to the Travelling Salesman Problem. The algorithm achieves results sufficient to prove that AI is capable of solving difficult tasks efficiently by means of balancing between the solution quality and computational speed.
