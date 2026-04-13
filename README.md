@@ -12,13 +12,10 @@ This project uses a genetic algorithm to find the best route going through each 
 ## Requirements
 
 - Python 3.x
-- NumPy
 
 ## Install Dependencies
 
-Open a terminal in the project folder and run:
-
-pip install numpy
+No dependencies needed as the random library is part of Python's standard library.
 
 ## How to Run
 
@@ -66,11 +63,6 @@ Since the initial population is random, the output may be different each time yo
   - Results are close to optimal
 
 ## Troubleshooting
-
-- If `numpy` is not installed, run:
-
-pip install numpy
-
 - If Python is not recognized, try:
 
 python3 genetic_algorithm.py
